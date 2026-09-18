@@ -1,0 +1,21 @@
+# Codi compilat de Java
+bin/
+out/
+*.class
+
+# Fitxers empaquetats
+*.jar
+*.war
+
+# Configuració d'IDEs
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+
+# Fitxers del sistema operatiu
+Thumbs.db
+desktop.ini
+.DS_Store

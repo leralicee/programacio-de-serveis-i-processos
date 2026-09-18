@@ -1,0 +1,1 @@
+sistema escollit: xifrat VX (vigenere + xor)
