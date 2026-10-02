@@ -1,3 +1,6 @@
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+
 public class ProgramaPrincipalAES {
 
     public static void main(String[] args) throws Exception {
@@ -46,5 +49,54 @@ public class ProgramaPrincipalAES {
         } catch (Exception e) {
             System.out.println("  Error: " + e.getMessage());
         }
+        System.out.println();
+
+        provaManual();
+    }
+
+    // l'usuari escriu el missatge i la clau. es repeteix fins que deixa el missatge buit
+    private static void provaManual() {
+        Scanner sc = new Scanner(System.in, StandardCharsets.UTF_8);
+        System.out.println("=== PROVA EL TEU MISSATGE AMB AES ===");
+
+        while (true) {
+            System.out.print("Missatge (enter per sortir): ");
+            String missatge = sc.nextLine();
+            if (missatge.isEmpty()) {
+                break;
+            }
+            System.out.print("Clau (16, 24 o 32 caracters): ");
+            String clau = sc.nextLine();
+
+            // si la clau no te la mida bona, encripta dona error i no seguim
+            String xifrat;
+            try {
+                xifrat = ClasseAES.encripta(missatge, clau);
+            } catch (Exception e) {
+                System.out.println("  Error: " + e.getMessage());
+                System.out.println();
+                continue;
+            }
+            System.out.println("  Xifrat:    " + xifrat);
+
+            try {
+                System.out.println("  Recuperat: " + ClasseAES.desencripta(xifrat, clau));
+            } catch (Exception e) {
+                System.out.println("  Error: " + e.getMessage());
+            }
+
+            // per provar la clau incorrecta en directe
+            System.out.print("Vols provar una clau incorrecta? Escriu-la (enter per saltar): ");
+            String altraClau = sc.nextLine();
+            if (!altraClau.isEmpty()) {
+                try {
+                    System.out.println("  Amb " + altraClau + ": " + ClasseAES.desencripta(xifrat, altraClau));
+                } catch (Exception e) {
+                    System.out.println("  Error: " + e.getMessage());
+                }
+            }
+            System.out.println();
+        }
+        sc.close();
     }
 }

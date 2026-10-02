@@ -1,3 +1,6 @@
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+
 public class ProgramaPrincipal {
 
     public static void main(String[] args) {
@@ -57,6 +60,42 @@ public class ProgramaPrincipal {
         System.out.println("  Xifrat amb 123:       " + xifratTest6);
         System.out.println("  Desxifrat amb 124:    " + resultatTest6);
         System.out.println("  Resultat: " + (!resultatTest6.equals("HOLA") ? "CORRECTE" : "INCORRECTE"));
+        System.out.println();
+
+        provaManual();
+    }
+
+    // l'usuari escriu el missatge i la clau. es repeteix fins que deixa el missatge buit
+    private static void provaManual() {
+        Scanner sc = new Scanner(System.in, StandardCharsets.UTF_8);
+        System.out.println("=== PROVA EL TEU MISSATGE ===");
+
+        while (true) {
+            System.out.print("Missatge (enter per sortir): ");
+            String missatge = sc.nextLine();
+            if (missatge.isEmpty()) {
+                break;
+            }
+            System.out.print("Clau: ");
+            String clau = sc.nextLine();
+
+            try {
+                String xifrat = ClasseCriptografica.encripta(missatge, clau);
+                System.out.println("  Xifrat:    " + xifrat);
+                System.out.println("  Recuperat: " + ClasseCriptografica.desencripta(xifrat, clau));
+
+                // per provar la clau incorrecta en directe
+                System.out.print("Vols provar una clau incorrecta? Escriu-la (enter per saltar): ");
+                String altraClau = sc.nextLine();
+                if (!altraClau.isEmpty()) {
+                    System.out.println("  Amb " + altraClau + ": " + ClasseCriptografica.desencripta(xifrat, altraClau));
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("  Error: " + e.getMessage());
+            }
+            System.out.println();
+        }
+        sc.close();
     }
 
     // fa l'anada i tornada d'un missatge i diu si s'ha recuperat igual
