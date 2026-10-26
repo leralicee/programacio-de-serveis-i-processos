@@ -9,6 +9,7 @@ CFGS Desenvolupament d'Aplicacions Multiplataforma (DAM) — 2n curs — Curs 20
 
 - [Pràctiques](#pràctiques)
   - [PE01 — Classe per encriptar informació](#pe01--classe-per-encriptar-informació)
+  - [PE02 — Control d'integritat](#pe02--control-dintegritat)
 - [Estructura del repositori](#estructura-del-repositori)
 - [Com compilar i executar](#com-compilar-i-executar)
 - [Convencions](#convencions)
@@ -20,6 +21,7 @@ CFGS Desenvolupament d'Aplicacions Multiplataforma (DAM) — 2n curs — Curs 20
 | Codi | Títol | RA | Tema | Estat |
 | :--- | :--- | :---: | :--- | :--- |
 | [PE01](PE01_Encriptació/README.md) | Classe per encriptar informació | RA5 | Encriptació i desencriptació de dades | 🟡 En curs |
+| [PE02](PE02_Hash_Salt/) | Control d'integritat | RA5 | Funcions hash, integritat i salt | 🟡 En curs |
 
 ---
 
@@ -56,15 +58,49 @@ de dues tècniques vistes a classe. Detalls a [`PE01_Encriptació/README.md`](PE
 
 ---
 
+### PE02 — Control d'integritat
+
+> 📂 [`PE02_Hash_Salt/`](PE02_Hash_Salt/) · 📄 Enunciat: [`PE02_Hash_Salt.pdf`](PE02_Hash_Salt/docs/PE02_Hash_Salt.pdf)
+
+Aplicació en Java per experimentar amb funcions **hash (SHA-256)**, verificar la
+**integritat** dels missatges i fer un sistema de **registre i inici de sessió** amb
+contrasenyes guardades com a hash amb **salt**.
+
+```
+MISSATGE              →  [ SHA-256 ]  →  HASH (hexadecimal)
+CONTRASENYA + SALT    →  [ SHA-256 ]  →  HASH GUARDAT
+```
+
+**Parts**
+
+- [ ] Part 1 — Càlcul de resums (SHA-256 en hexadecimal)
+- [ ] Part 2 — Verificació de la integritat (`missatge.txt` i `missatge.hash`)
+- [ ] Part 3 — Registre d'usuaris amb salt
+- [ ] Part 4 — Inici de sessió i verificació de contrasenyes
+- [ ] Part 5 — Proves de la pràctica i documentació
+
+**Punts clau de l'enunciat**
+
+1. Els hashes s'han de mostrar en format **hexadecimal**.
+2. Cada registre ha de tenir una **salt aleatòria i diferent**.
+3. **No** s'ha de guardar ni mostrar la contrasenya original un cop acabat el registre.
+4. Només es permet l'accés quan el hash calculat coincideix amb el guardat.
+
+---
+
 ## Estructura del repositori
 
 ```
 Programació de serveis i processos/
 ├── .gitignore
 ├── README.md                       ← ets aquí
-└── PE01_Encriptació/
-    ├── README.md                   ← guia de la pràctica
-    ├── docs/                       ← enunciat, disseny, proves i documentació
+├── PE01_Encriptació/
+│   ├── README.md                   ← guia de la pràctica
+│   ├── docs/                       ← enunciat, disseny, proves i documentació
+│   ├── src/                        ← codi font (.java)
+│   └── bin/                        ← codi compilat (.class, ignorat pel repositori)
+└── PE02_Hash_Salt/
+    ├── docs/                       ← enunciat i exemple del professor (Hash01.java)
     ├── src/                        ← codi font (.java)
     └── bin/                        ← codi compilat (.class, ignorat pel repositori)
 ```
